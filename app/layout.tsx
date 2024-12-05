@@ -1,14 +1,9 @@
 import Navbar from "@/components/navbar";
 import { GeistSans } from "geist/font/sans";
 import { ThemeProvider } from "next-themes";
-import "./globals.css";
-
-const defaultUrl = process.env.VERCEL_URL
-  ? `https://${process.env.VERCEL_URL}`
-  : "http://localhost:3000";
+import "@/app/globals.css";
 
 export const metadata = {
-  metadataBase: new URL(defaultUrl),
   title: "Testing",
   description: "Best way to learn",
 };

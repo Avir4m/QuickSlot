@@ -1,6 +1,6 @@
 import Link from "next/link";
-import HeaderAuth from "./header-auth";
-import { ThemeSwitcher } from "./theme-switcher";
+import HeaderAuth from "@/components/header-auth";
+import { ThemeSwitcher } from "@/components/theme-switcher";
 
 export default function Navbar() {
     return (
