@@ -6,13 +6,11 @@ import { Button } from "@/components/ui/button";
 export default async function AuthButton() {
   const supabase = await createClient();
 
-  const {
-    data: { user },
-  } = await supabase.auth.getUser();
+  const { data: { user }} = await supabase.auth.getUser();
 
   return user ? (
     <div className="flex items-center gap-4">
-      Hey, {user.email}!
+      <Link href={"/user"}>Hey, { user.user_metadata.display_name }!</Link>
       <form action={signOutAction}>
         <Button type="submit" variant={"outline"}>
           Sign out
