@@ -5,6 +5,7 @@ import { type NextRequest, NextResponse } from "next/server";
 const protectedRoutes = [
   "/user",
   "/reset-password",
+  "organizations",
 ];  
 
 // Auth Routes
@@ -51,7 +52,7 @@ export const updateSession = async (request: NextRequest) => {
 
     // Redirect if trying to access auth pages while logged in
     if (user.user && isAuthRoute) {
-      return NextResponse.redirect(new URL("/user", request.url));
+      return NextResponse.redirect(new URL("/organizations", request.url));
     }
 
     // Redirect if trying to access protected pages without being logged in
