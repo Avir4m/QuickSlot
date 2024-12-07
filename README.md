@@ -1,2 +1,2 @@
 # QuickSlot
-## Organize your organization
+## Organize your organizations

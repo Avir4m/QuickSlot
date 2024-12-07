@@ -8,12 +8,12 @@ export default async function organizationsPage() {
     const numOfOrganizations = organizations?.length;
     return (
         <>
-        <div className="items-center flex flex-col gap-4">
+        <div className="items-center flex flex-col gap-8">
             <Suspense fallback="You are currently in ... organizations">
                 <h1>You are currently in { numOfOrganizations } organizations</h1>
-                <div>
+                <div className="flex flex-col gap-8 items-center bg-gray-100 p-16 rounded-lg border">
                 {organizations?.map((org, index) => (
-                    <p key={index}>{org.name} </p>
+                    <p key={index}><Link href={`/organizations/${org.id}`}>{org.name}</Link></p>
                 )) || <p>No organizations found.</p>}
                 </div>
             </Suspense>
