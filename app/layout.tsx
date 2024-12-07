@@ -2,10 +2,11 @@ import Navbar from "@/components/navbar";
 import { GeistSans } from "geist/font/sans";
 import { ThemeProvider } from "next-themes";
 import "@/app/globals.css";
+import { Suspense } from "react";
 
 export const metadata = {
-  title: "Testing",
-  description: "Best way to learn",
+  title: "QuickSlot",
+  description: "Organize your organizations",
 };
 
 export default function RootLayout({
@@ -26,7 +27,9 @@ export default function RootLayout({
             <div className="flex-1 w-full flex flex-col gap-20 items-center">
               <Navbar/>
               <div className="flex flex-col gap-20 max-w-5xl p-5">
-                {children}
+                <Suspense fallback="loading...">
+                  {children}
+                </Suspense>
               </div>
             </div>
           </main>

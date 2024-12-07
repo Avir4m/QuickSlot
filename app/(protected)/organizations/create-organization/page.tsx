@@ -8,17 +8,16 @@ export default async function createOrganizationPage(props: {searchParams: Promi
     const searchParams = await props.searchParams;
     return (
         <div className="flex flex-col gap-16 items-center">
-            <h1 className="text-xl">Create your Organization</h1>
-            <form className="w-[256px] lg:w-[384px] flex flex-col gap-8">
-                <div className="gap-2 flex flex-col">
-                <Label>Name</Label>
-                <Input
-                name="name"
-                placeholder="Name"
-                />
+            <form className="flex flex-col min-w-128 max-w-128 mx-auto">
+                <h1 className="text-2xl font-medium">Create your Organization</h1>
+                <div className="flex flex-col gap-2 [&>input]:mb-3 mt-8">
+                    <Label htmlFor="name">Name</Label>
+                    <Input name="name" placeholder="name" required />
+                    <SubmitButton formAction={createOrganization} pendingText="Creating...">
+                        Create Organization
+                    </SubmitButton>
+                    <FormMessage message={searchParams} />
                 </div>
-                <SubmitButton formAction={createOrganization} pendingText="Creating...">Create Organization</SubmitButton>
-                <FormMessage message={searchParams}/>
             </form>
         </div>
     );
