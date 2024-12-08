@@ -1,4 +1,4 @@
-import { createOrganization } from "@/app/actions/organizations/actions";
+import { createOrganization } from "@/app/actions/organizations/createOrganization";
 import { FormMessage, Message } from "@/components/form-message";
 import { SubmitButton } from "@/components/submit-button";
 import { Input } from "@/components/ui/input";
