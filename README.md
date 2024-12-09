@@ -21,11 +21,11 @@ QuickSlot is a modern, user-friendly platform that allows members to create orga
 
 QuickSlot is built using a powerful and modern tech stack:
 
-- **[Next.js](https://nextjs.org/):**
-- **[TypeScript](https://www.typescriptlang.org/):**
-- **[Supabase](https://supabase.com/):**
-- **[Tailwind CSS](https://tailwindcss.com/):** 
-- **[React](https://reactjs.org/):** 
+- **[Next.js](https://nextjs.org/)**
+- **[TypeScript](https://www.typescriptlang.org/)**
+- **[Supabase](https://supabase.com/)**
+- **[Tailwind CSS](https://tailwindcss.com/)** 
+- **[React](https://reactjs.org/)** 
 
 ---
 
