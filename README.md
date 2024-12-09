@@ -6,13 +6,13 @@ QuickSlot is a modern, user-friendly platform that allows members to create orga
 
 ## Features
 
-- **Organization Management:** 
+- **Organization Management:** (W.I.P)
   - Members can create organizations and add other members to their organizations.
   
-- **Service Offerings:** 
+- **Service Offerings:** (W.I.P)
   - Members can define the services they offer to clients.
   
-- **Booking System:** 
+- **Booking System:** (W.I.P)
   - Clients can browse available times in a member's calendar and book services directly.
 
 ---
