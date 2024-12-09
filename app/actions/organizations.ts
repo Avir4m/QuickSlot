@@ -38,3 +38,29 @@ export const createOrganization = async (formData: FormData) => {
       "You created an organization successfully",
     );
 }
+
+export const organizationsUserIsIn = async () => {
+  const supabase = await createClient();
+  const user = await supabase.auth.getUser();
+  const userId = user.data.user?.id;
+  const { data: organizations } = await supabase.from("Organizations").select().filter("members", "cs", `{${userId}}`);
+  return organizations;
+}
+
+export const getOrganization = async (uuid: String) => {
+  const supabase = await createClient();
+  const { data: organization } = await supabase.from("Organizations").select("*").eq("id", uuid).single();
+  return organization;
+}
+
+export const isOwnerOfOrg = async (organizationId: any) => {
+  const supabase = await createClient();
+  const { data: user }  = await supabase.auth.getUser();
+  const { data: organizationOwner, error } = await supabase.from("Organizations").select("owner_id").eq("id", organizationId).single();
+  
+  if (error || !organizationOwner) {
+    return false;
+  }
+
+  return (organizationOwner.owner_id === user.user?.id);
+}

@@ -1,4 +1,4 @@
-import { organizationsUserIsIn } from "@/app/actions/organizations/getOrganizations";
+import { organizationsUserIsIn } from "@/app/actions/organizations";
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
 import { Suspense } from "react";
