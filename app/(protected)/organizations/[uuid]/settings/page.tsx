@@ -1,24 +1,30 @@
 import { getOrganization, isOwnerOfOrg } from "@/app/actions/organizations";
+import ApiActionButton from "@/components/ ApiActionButton";
 import { Button } from "@/components/ui/button";
-import { NextResponse } from "next/server";
+import { Input } from "@/components/ui/input";
  
 export default async function organizationSettingsPage({ params }: {params: Promise<{ uuid: string }>}) {
     const uuid = (await params).uuid;
     const organization = await getOrganization(uuid);
-
-    if (!isOwnerOfOrg(uuid)) {
-        return NextResponse.redirect(new URL(`/organizations/${uuid}`)); 
-    }
 
     return (
         <>
             <div className="flex">
                 { organization.name }
             </div>
-            
-            <Button className="bg-red-500 text-white">
-                Delete Organization
-            </Button>
+
+            <div className="flex gap-4">
+                <Input defaultValue={ organization.name }/>
+                <Button>Update</Button>
+            </div>
+
+            <ApiActionButton
+            className="bg-red-500 hover:bg-red-600"
+                label="Delete Organization"
+                apiUrl={`/api/organizations/${organization.uuid}`}
+                method="DELETE"
+            />
+
         </>
     );
 }
