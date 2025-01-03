@@ -43,7 +43,6 @@ export default function ApiActionButton({
           alert(`Failed to complete action: ${errorMessage}`);
       }
     } catch (error) {
-      console.error('Action failed:', error);
       alert('An error occurred while performing the action.');
     } finally {
       setLoading(false);

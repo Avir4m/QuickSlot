@@ -11,11 +11,7 @@ export const createOrganization = async (formData: FormData) => {
   
 
   if (!name) {
-      return encodedRedirect(
-          "error",
-          "/organizations/create-organization",
-          "Name is required",
-        );
+      return encodedRedirect("error", "/organizations/create-organization", "Name is required");
     }
   
     const { data, error } = await supabase.from("Organizations").insert([

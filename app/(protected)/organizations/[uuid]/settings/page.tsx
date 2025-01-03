@@ -21,7 +21,7 @@ export default async function organizationSettingsPage({ params }: {params: Prom
             <ApiActionButton
             className="bg-red-500 hover:bg-red-600"
                 label="Delete Organization"
-                apiUrl={`/api/organizations/${organization.uuid}`}
+                apiUrl={`/api/organizations/${organization.id}`}
                 method="DELETE"
             />
 
