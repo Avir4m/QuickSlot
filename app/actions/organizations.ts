@@ -64,24 +64,6 @@ export const getOrganization = async (uuid: string) => {
   return data;
 };
 
-
-export const isOwnerOfOrg = async (organizationId: any) => {
-  const supabase = await createClient();
-  const { data: user }  = await supabase.auth.getUser();
-  
-  if (!user.user) {
-    return encodedRedirect("error", "/sign-in", "You must be authenticated to do this action.");
-  }
-
-  const { data: organizationOwner, error } = await supabase.from("Organizations").select("owner_id").eq("id", organizationId).single();
-  
-  if (error || !organizationOwner) {
-    return false;
-  }
-
-  return (organizationOwner.owner_id === user.user?.id);
-}
-
 export const deleteOrganization = async (organizationId: string): Promise<{ success: boolean; message: string }> => {
   const supabase = await createClient();
   const { data: user } = await supabase.auth.getUser();
