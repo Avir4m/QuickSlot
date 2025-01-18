@@ -9,9 +9,12 @@ export const createOrganization = async (formData: FormData) => {
   const ownerId = user.user?.id;
   const name = formData.get("name")?.toString();
   
+  if (!user.user) {
+    return encodedRedirect("error", "/sign-in", "You must be authenticated to create an organization.");
+  }
 
   if (!name) {
-      return encodedRedirect("error", "/organizations/create-organization", "Name is required");
+      return encodedRedirect("error", "/organizations/create-organization", "A name is required.");
     }
   
     const { data, error } = await supabase.from("Organizations").insert([
@@ -37,9 +40,15 @@ export const createOrganization = async (formData: FormData) => {
 
 export const organizationsUserIsIn = async () => {
   const supabase = await createClient();
-  const user = await supabase.auth.getUser();
-  const userId = user.data.user?.id;
+  const { data: user } = await supabase.auth.getUser();
+
+  if (!user.user) {
+    return encodedRedirect("error", "/sign-in", "You must be authenticated to do this action.");
+  }
+  
+  const userId = user.user.id;
   const { data: organizations } = await supabase.from("Organizations").select().filter("members", "cs", `{${userId}}`);
+
   return organizations;
 }
 
@@ -59,6 +68,11 @@ export const getOrganization = async (uuid: string) => {
 export const isOwnerOfOrg = async (organizationId: any) => {
   const supabase = await createClient();
   const { data: user }  = await supabase.auth.getUser();
+  
+  if (!user.user) {
+    return encodedRedirect("error", "/sign-in", "You must be authenticated to do this action.");
+  }
+
   const { data: organizationOwner, error } = await supabase.from("Organizations").select("owner_id").eq("id", organizationId).single();
   
   if (error || !organizationOwner) {
@@ -68,24 +82,29 @@ export const isOwnerOfOrg = async (organizationId: any) => {
   return (organizationOwner.owner_id === user.user?.id);
 }
 
-export const deleteOrganization = async (organizationId: string) => {
+export const deleteOrganization = async (organizationId: string): Promise<{ success: boolean; message: string }> => {
   const supabase = await createClient();
-
   const { data: user } = await supabase.auth.getUser();
-  const { data: organizationOwner, error: ownerError } = await supabase
-    .from("Organizations")
-    .select("owner_id")
-    .eq("id", organizationId)
-    .single();
 
-  if (ownerError || organizationOwner?.owner_id !== user.user?.id) {
-    throw new Error("You do not have permission to delete this organization.");
+  if (!user.user) {
+      return { success: false, message: "You must be authenticated to perform this action." };
+  }
+
+  const { data: organization, error: ownerError } = await supabase
+      .from("Organizations")
+      .select("owner_id")
+      .eq("id", organizationId)
+      .single();
+
+  if (ownerError || organization.owner_id !== user.user?.id) {
+      return { success: false, message: "You do not have permission to delete this organization." };
   }
 
   const { error } = await supabase.from("Organizations").delete().eq("id", organizationId);
+
   if (error) {
-    throw new Error(`Failed to delete organization: ${error.message}`);
+      return { success: false, message: `Failed to delete organization: ${error.message}` };
   }
 
-  return true;
+  return { success: true, message: "Organization deleted successfully." };
 };
