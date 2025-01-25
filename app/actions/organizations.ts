@@ -37,20 +37,6 @@ export const createOrganization = async (formData: FormData) => {
     );
 }
 
-export const organizationsUserIsIn = async () => {
-  const supabase = await createClient();
-  const { data: user } = await supabase.auth.getUser();
-
-  if (!user.user) {
-    return encodedRedirect("error", "/sign-in", "You must be authenticated to do this action.");
-  }
-  
-  const userId = user.user.id;
-  const { data: organizations } = await supabase.from("Organizations").select().filter("members", "cs", `{${userId}}`);
-
-  return organizations;
-}
-
 export const getOrganization = async (uuid: string) => {
   const supabase = await createClient();
   const { data, error } = await supabase.from("Organizations").select("*").eq("id", uuid).single();
