@@ -27,7 +27,6 @@ export const createOrganization = async (formData: FormData) => {
     ]);
 
   if (error) {
-      console.error(error.code + " " + error.message);
       return encodedRedirect("error", "/organizations/create-organization", error.message);
   }
 
@@ -57,8 +56,7 @@ export const getOrganization = async (uuid: string) => {
   const { data, error } = await supabase.from("Organizations").select("*").eq("id", uuid).single();
 
   if (error) {
-    console.error("Error fetching organization:", error);
-    throw new Error("Failed to fetch organization.");
+    return { success: false, message: "Failed to fetch organization." };
   }
 
   return data;
